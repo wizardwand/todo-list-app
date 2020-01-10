@@ -23,12 +23,20 @@ export class TodoListComponent implements OnInit {
   ngOnInit() {
   }
   onSubmit() {
-    this.ngRedux.dispatch({type: ADD_TODO, todo: this.model});
+    if( this.model.description !== "" && this.model.responsible !== ""){
+      this.ngRedux.dispatch({type: ADD_TODO, todo: this.model});
+      this.clearFields();
+    }
   }
   toggleTodo(todo) {
     this.ngRedux.dispatch({ type: TOGGLE_TODO, id: todo.id });
   }
   removeTodo(todo) {
     this.ngRedux.dispatch({type: REMOVE_TODO, id: todo.id });
+  }
+  
+  clearFields(){
+    this.model.description = "";
+    this.model.responsible = "";
   }
 }
